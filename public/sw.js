@@ -1,5 +1,5 @@
 /* Cache name changes whenever the offline asset list is updated. */
-const CACHE_NAME = "ufh-maintenance-v3";
+const CACHE_NAME = "ufh-maintenance-v4";
 
 /* Core application files and campus slideshow images available offline. */
 const OFFLINE_ASSETS = [
@@ -8,6 +8,7 @@ const OFFLINE_ASSETS = [
   "/app.css",
   "/app.js",
   "/ufh-logo.png",
+  "/ufhlogo.png",
   "/favicon.png",
   "/stewart-hall.jpg",
   "/campusimage1.jpg",

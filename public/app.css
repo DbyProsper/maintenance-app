@@ -164,7 +164,8 @@ button {
 }
 
 .access-hero-content > img {
-  width: 150px;
+  width: clamp(165px, 13vw, 190px);
+  height: auto;
   filter: drop-shadow(0 4px 9px #000);
   margin-bottom: 32px;
 }
