@@ -1,6 +1,150 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#002b49"><meta name="description" content="Database-free UFH Residence Maintenance Reporting System academic prototype"><title>UFH Residence Maintenance Reporting System</title><link rel="icon" type="image/png" href="/favicon.png"><link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/app.css"></head>
-<body><a class="skip-link" href="#main">Skip to main content</a><div id="boot" class="boot" role="status" hidden><img src="/ufh-logo.png" alt=""><span class="spinner"></span><strong>Preparing UFH Maintenance</strong></div>
-<header id="topbar" class="topbar" hidden><button id="menu-toggle" class="icon-button mobile-only" type="button" aria-label="Open navigation" aria-expanded="false">☰</button><a class="brand" href="#dashboard" aria-label="UFH Maintenance dashboard"><img src="/ufh-logo.png" alt="University of Fort Hare logo"><span><strong>UFH Maintenance</strong><small>Alice Campus</small></span></a><div class="top-actions"><button id="global-search-btn" class="icon-button staff-only" type="button" aria-label="Focus global search">⌕</button><button id="theme-toggle" class="icon-button" type="button" aria-label="Switch theme">☾</button><button id="notifications-button" class="icon-button" type="button" aria-label="Open notifications">♢<span id="notification-count" class="badge" hidden>0</span></button><button id="profile-button" class="profile-pill" type="button"></button></div></header>
-<div id="app-shell" class="app-shell" hidden><aside id="sidebar" class="sidebar" aria-label="Main navigation"><nav id="main-nav"></nav><div class="sidebar-note"><strong>Local academic prototype</strong><p>Data stays in this browser. This is not UFH institutional authentication.</p></div></aside><div id="drawer-backdrop" class="drawer-backdrop" hidden></div><main id="main" tabindex="-1"><div id="view" class="view"></div></main></div>
-<main id="access" class="access-shell"><section class="access-hero"><img src="/ufh-logo.png" alt="University of Fort Hare logo"><p class="eyebrow">HCI 527 · functional academic prototype</p><h1>Report it once.<br>Track it clearly.</h1><p>Direct residence maintenance reporting with clear locations, accountable updates and human-controlled priority decisions.</p></section><section class="access-panel"><img class="access-logo" src="/ufh-logo.png" alt="University of Fort Hare logo"><p class="eyebrow">Local prototype access</p><h2>Choose a profile</h2><p class="muted">Create or select a profile stored only in this browser. No connection to UFH identity services is claimed.</p><div id="profile-list" class="profile-list"></div><button id="new-profile" class="primary wide" type="button">Create local profile</button><button id="access-theme" class="text-button" type="button">Use dark mode</button></section></main>
-<div id="modal-root"></div><div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div><div id="fatal" class="fatal" hidden><img src="/ufh-logo.png" alt=""><h1>We could not open the prototype</h1><p id="fatal-message"></p><button class="primary" onclick="location.reload()">Try again</button></div><script src="/app.js" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#002b49" />
+    <meta
+      name="description"
+      content="Database-free UFH Residence Maintenance Reporting System academic prototype"
+    />
+    <title>UFH Residence Maintenance Reporting System</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body>
+    <!-- Accessibility: keyboard users can bypass the application navigation. -->
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- Startup and error states shown while the local database is prepared. -->
+    <div id="boot" class="boot" role="status" hidden>
+      <img src="/ufh-logo.png" alt="" /><span class="spinner"></span
+      ><strong>Preparing UFH Maintenance</strong>
+    </div>
+    <!-- Authenticated application header and global actions. -->
+    <header id="topbar" class="topbar" hidden>
+      <button
+        id="menu-toggle"
+        class="icon-button mobile-only"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰</button
+      ><a class="brand" href="#dashboard" aria-label="UFH Maintenance dashboard"
+        ><img src="/ufh-logo.png" alt="University of Fort Hare logo" /><span
+          ><strong>UFH Maintenance</strong><small>Alice Campus</small></span
+        ></a
+      >
+      <div class="top-actions">
+        <button
+          id="global-search-btn"
+          class="icon-button staff-only"
+          type="button"
+          aria-label="Focus global search"
+        >
+          ⌕</button
+        ><button
+          id="theme-toggle"
+          class="icon-button"
+          type="button"
+          aria-label="Switch theme"
+        >
+          ☾</button
+        ><button
+          id="notifications-button"
+          class="icon-button"
+          type="button"
+          aria-label="Open notifications"
+        >
+          ♢<span id="notification-count" class="badge" hidden>0</span></button
+        ><button
+          id="profile-button"
+          class="profile-pill"
+          type="button"
+        ></button>
+      </div>
+    </header>
+    <!-- Main application shell: navigation is filled according to the user's role. -->
+    <div id="app-shell" class="app-shell" hidden>
+      <aside id="sidebar" class="sidebar" aria-label="Main navigation">
+        <nav id="main-nav"></nav>
+        <div class="sidebar-note">
+          <strong>Local academic prototype</strong>
+          <p>
+            Data stays in this browser. This is not UFH institutional
+            authentication.
+          </p>
+        </div>
+      </aside>
+      <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+      <main id="main" tabindex="-1"><div id="view" class="view"></div></main>
+    </div>
+    <!-- Public access page shown before a local student or staff profile is selected. -->
+    <main id="access" class="access-shell">
+      <section class="access-hero">
+        <!-- Decorative campus slideshow. JavaScript changes the active image every four seconds. -->
+        <div class="hero-slideshow" aria-hidden="true">
+          <img class="hero-slide is-active" src="/stewart-hall.jpg" alt="" />
+          <img class="hero-slide" src="/campusimage1.jpg" alt="" />
+          <img class="hero-slide" src="/Library.png" alt="" />
+          <img class="hero-slide" src="/Nkandla.jpg" alt="" />
+          <img class="hero-slide" src="/ufhchurchclock.jpg" alt="" />
+          <img class="hero-slide" src="/SV3.jpg" alt="" />
+        </div>
+        <div class="hero-vignette" aria-hidden="true"></div>
+
+        <!-- Hero copy stays above every image and remains readable over the vignette. -->
+        <div class="access-hero-content">
+          <img src="/ufh-logo.png" alt="University of Fort Hare logo" />
+          <p class="eyebrow">HCI 527 · functional academic prototype</p>
+          <h1>Report it once.<br />Track it clearly.</h1>
+          <p>
+            Direct residence maintenance reporting with clear locations,
+            accountable updates and human-controlled priority decisions.
+          </p>
+        </div>
+      </section>
+
+      <!-- Local profile selection; no institutional authentication is claimed. -->
+      <section class="access-panel">
+        <img
+          class="access-logo"
+          src="/ufh-logo.png"
+          alt="University of Fort Hare logo"
+        />
+        <p class="eyebrow">Local prototype access</p>
+        <h2>Choose a profile</h2>
+        <p class="muted">
+          Create or select a profile stored only in this browser. No connection
+          to UFH identity services is claimed.
+        </p>
+        <div id="profile-list" class="profile-list"></div>
+        <button id="new-profile" class="primary wide" type="button">
+          Create local profile</button
+        ><button id="access-theme" class="text-button" type="button">
+          Use dark mode
+        </button>
+      </section>
+    </main>
+    <!-- Shared overlay regions used for dialogs and non-blocking feedback. -->
+    <div id="modal-root"></div>
+    <div
+      id="toast-region"
+      class="toast-region"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <div id="fatal" class="fatal" hidden>
+      <img src="/ufh-logo.png" alt="" />
+      <h1>We could not open the prototype</h1>
+      <p id="fatal-message"></p>
+      <button class="primary" onclick="location.reload()">Try again</button>
+    </div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
